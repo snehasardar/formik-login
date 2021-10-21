@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import * as Yup from 'yup';
 import Select from 'react-select';
-import API from '..../shared/api';
+// import API from '..../shared/api';
 
 import './signUp.styles.css';
 import '../styles.css';
@@ -59,28 +59,31 @@ const SignUp = (props) => {
 			email: values.email,
 			password: values.password,
 			gender: values.gender.value,
+			
 		};
+		dispatch(signUp(post_data));
+		history.push('/LogIn');
 		
-		API
-			.get(`https://jsonplaceholder.typicode.com/todos?_start=${start}&_limit=${end}`)
-			.then((res) => {
-				setTimeout(() => {
-					console.log('post_data', post_data);
-					console.log({ actions });
-					actions.setSubmitting(false);
-					actions.resetForm();
-					history.push('/LogIn');
+		// API
+		// 	.get(`https://jsonplaceholder.typicode.com/todos?_start=${start}&_limit=${end}`)
+		// 	.then((res) => {
+		// 		setTimeout(() => {
+		// 			console.log('post_data', post_data);
+		// 			console.log({ actions });
+		// 			actions.setSubmitting(false);
+		// 			actions.resetForm();
+		// 			history.push('/LogIn');
 
-					dispatch(signUp(post_data));
-					setIsLoading(false);
-					setPosts(res.data);
-				}, 1000);
-			})
-			.catch((err) => {
-				console.log(err);
-				actions.setSubmitting(false); //enable the button again
-				actions.setErrors(err); //set the errors to form which came through API
-			});
+		// 			dispatch(signUp(post_data));
+		// 			setIsLoading(false);
+		// 			setPosts(res.data);
+		// 		}, 1000);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err);
+		// 		actions.setSubmitting(false); //enable the button again
+		// 		actions.setErrors(err); //set the errors to form which came through API
+		// 	});
 	};
 
 	const handleMobileNumberChange = (event, setFieldValue) => {
@@ -104,16 +107,19 @@ const SignUp = (props) => {
 								<FormikForm>
 									{console.log('errors', errors)}
 									<Form.Group controlId="name">
-										<Form.Control
-											type="text"
-											name="name"
-											placeholder="Name *"
-											onChange={(e) => setFieldValue({"name" : e.target.value})}
-											value={values.name}
-											isInvalid={errors.name && touched.name}
-										/>
-										{errors.name && touched.name ? <p className="error no-pos"> {errors.name}</p> : null}
-									</Form.Group>
+									<Form.Control
+										type="text"
+										placeholder="Name *"
+										onChange={handleChange}
+										value={values.name}
+										isInvalid={errors.name && touched.name}
+									/>
+									{
+										errors.name && touched.name? (
+											<p className="error no-pos"> {errors.name}</p>
+										):(null)
+									}
+								</Form.Group>
 									<Form.Group controlId="mobile_no">
 										<Form.Control
 											type="text"
