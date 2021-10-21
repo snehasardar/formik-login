@@ -91,7 +91,7 @@ const SignUp = (props) => {
 				<Col xs={12} md={5} className="callBackBg">
 				</Col>
 				<Col xs={12} md={7} className="">
-					<h3>Request Callback</h3>
+					<h3>Register to your Account</h3>
 					<Formik
 						initialValues={initialValues}
 						validationSchema={validateRequestCallBack}
