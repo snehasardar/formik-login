@@ -17,6 +17,7 @@ const initialValues = {
 	name		: '',
 	mobile_no	: '',
 	email		: '',
+	password	: '',
 };
 console.log('initialValues', initialValues)
 
@@ -46,6 +47,10 @@ const LogIn = (props) => {
 		.trim()
 		.email("Enter valid Email Id")
 		.required("Please enter Email Id"),
+		password: Yup.string()
+		.trim()
+		// .password("Enter valid Password")
+		.required("Please enter Password"),
 	});
 
   	const handleSubmitEvent = (values, actions) => {
@@ -53,9 +58,10 @@ const LogIn = (props) => {
 			name 		: values.name,
 			mobile_no 	: values.mobile_no,
 			email     	: values.email,	
+			password	: values.password,
 		}
 		console.log('post_data', postdata);
-        if( postdata.name == newInitialValues.uname  && postdata.mobile_no == newInitialValues.umobile_no &&  postdata.email == newInitialValues.uemail){
+        if( postdata.name == newInitialValues.uname  && postdata.mobile_no == newInitialValues.umobile_no &&  postdata.email == newInitialValues.uemail && postdata.password == newInitialValues.upassword){
             alert('successfully login')
         }else
         {
@@ -69,6 +75,7 @@ const LogIn = (props) => {
 		uname		: userData && Object.keys(userData).length > 0 ? userData.name : "",
 		umobile_no	: userData && Object.keys(userData).length > 0 ? userData.mobile_no: "",
 		uemail		: userData && Object.keys(userData).length > 0 ? userData.email: "",
+		upassword	: userData && Object.keys(userData).length > 0 ? userData.password: "",
 	}
 	console.log('newInitialValues', newInitialValues)
     console.log('newInitialValues uname',newInitialValues.uname)
@@ -139,6 +146,20 @@ const LogIn = (props) => {
 									{
 										errors.email && touched.email? (
 											<p className="error no-pos"> {errors.email}</p>
+										):(null)
+									}
+								</Form.Group>
+								<Form.Group controlId="password">
+									<Form.Control
+										type="password"
+										placeholder="Password *"
+										onChange={handleChange}
+										value={values.password}
+										isInvalid={errors.password && touched.password}
+									/>
+									{
+										errors.password && touched.password? (
+											<p className="error no-pos"> {errors.password}</p>
 										):(null)
 									}
 								</Form.Group>
